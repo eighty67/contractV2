@@ -1,6 +1,7 @@
 import { HardhatRuntimeEnvironment } from "hardhat/types"
 import { DeployFunction } from "hardhat-deploy/types"
 import verify from "../utils/verify"
+import fs from "fs"
 
 const deployEscrowContract: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     const { getNamedAccounts, deployments, network } = hre
@@ -24,5 +25,12 @@ const deployEscrowContract: DeployFunction = async (hre: HardhatRuntimeEnvironme
             "can't verify on localhost. suggest: yarn hardhat deploy --network<network name>"
         )
     }
+
+    // const data = {
+    //     address: escrowcontract.address,
+    //     abi: JSON.parse(escrowcontract.interface.format("json")),
+    // }
+
+    fs.writeFileSync("./EscrowContract.json", JSON.stringify(data))
 }
 export default deployEscrowContract
